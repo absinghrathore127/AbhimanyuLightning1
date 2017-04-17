@@ -1,0 +1,49 @@
+<aura:component controller="AccountController">
+    <aura:attribute name="contactLevel" type="String[]" default="--None--,Name,id,AccountNumber,Site,AccountSource,BillingAddress"/>
+    <aura:attribute name="contactLevel1" type="String[]" default="--None--,equals,not equal to,less than,less or equal,greater or equal"/> 
+    <aura:registerEvent name="appEvent" type="c:accountEvent"/>
+    <aura:attribute name="newOption" type="Account_Option__c"
+                    default="{ 'sobjectType': 'Account_Option__c',
+                             'Name': ''
+                             }"/>
+    
+    <div aria-labelledby="newexpenseform">
+        <!-- CREATE NEW EXPENSE FORM -->
+        <br></br>
+        <form class="slds-form--inline">
+           <div class="slds-form-element slds-is-required">
+                <div class="slds-form-element__control">
+                    
+                    <ui:inputSelect aura:id="levels2"  class="slds-input" value="{!v.newOption.Name}">
+                        <aura:iteration items="{!v.contactLevel}" var="level">
+                            <ui:inputSelectOption text="{!level}" label="{!level}"/>
+                        </aura:iteration>
+                    </ui:inputSelect>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="slds-form-element slds-is-required">
+                <div class="slds-form-element__control">
+                    <ui:inputSelect aura:id="levels3"  class="slds-input">
+                        <aura:iteration items="{!v.contactLevel1}" var="level">
+                            <ui:inputSelectOption text="{!level}" label="{!level}"/>
+                        </aura:iteration>
+                    </ui:inputSelect>
+                </div>
+            </div>
+            
+            <div class="slds-form-element">
+                <div class="slds-form-element__control" onfocusout="{!c.clickCreateExpense}">
+                    <ui:inputText aura:id="inputValue" 
+                                  class="slds-input"
+                                  labelClass="slds-form-element__label"
+                                  />
+                </div>
+            </div>
+        </form>
+        <!-- / CREATE NEW EXPENSE FORM -->
+    </div>
+    
+</aura:component>

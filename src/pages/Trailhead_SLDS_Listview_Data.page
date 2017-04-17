@@ -1,0 +1,205 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+<head>
+
+
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Salesforce Lightning Design System Trailhead Module</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <apex:stylesheet value="{!URLFOR($Resource.SLDS221, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
+</head>
+<apex:remoteObjects >
+  <apex:remoteObjectModel name="Account" fields="Id,Name,LastModifiedDate"/>
+</apex:remoteObjects>
+
+<body>
+
+  <!-- REQUIRED SLDS WRAPPER -->
+  <div class="slds">
+
+    <!-- MASTHEAD -->
+    <p class="slds-text-heading--label slds-m-bottom--small">
+      Salesforce Lightning Design System Trailhead Module
+    </p>
+    <!-- / MASTHEAD -->
+
+    <!-- PAGE HEADER -->
+   
+<div class="slds-page-header" role="banner">
+  <div class="slds-grid">
+    <div class="slds-col slds-has-flexi-truncate">
+      <!-- HEADING AREA -->
+      <!-- HEADING AREA -->
+<div class="slds-media slds-media--top slds-no-space slds-grow">
+  <div class="slds-media__figure">
+    <span class="slds-avatar slds-avatar--medium">
+      <img src="{!URLFOR($Resource.SLDS221, 'assets/images/avatar1.jpg')}" alt="" />
+    </span>
+  </div>
+  <div class="slds-media__body">
+    <p class="slds-text-heading--label">Accounts</p>
+    <h1 class="slds-page-header__title slds-truncate" title="My Accounts">My Accounts</h1>
+  </div>
+</div>     
+      <!-- / HEADING AREA -->
+    </div>
+    <div class="slds-col slds-no-flex slds-grid slds-align-top">
+      <button class="slds-button slds-button--neutral">New Account</button>
+    </div>
+  </div>
+  <div class="slds-grid">
+    <div class="slds-col slds-align-bottom slds-p-top--small">
+      <p class="slds-text-body--small page-header__info">COUNT items</p>
+    </div>
+  </div>
+</div>
+<!-- / PAGE HEADER -->
+
+    
+
+        <!-- PRIMARY CONTENT WRAPPER -->
+<!-- ACCOUNT LIST TABLE -->
+<!-- PRIMARY CONTENT WRAPPER -->
+<div class="myapp">
+
+  <!-- CREATE NEW ACCOUNT -->
+  <div aria-labelledby="newaccountform">
+
+    <!-- CREATE NEW ACCOUNT FORM -->
+    <form class="slds-form--stacked" id="add-account-form">
+      <!-- BOXED AREA -->
+      <fieldset class="slds-box slds-theme--default slds-container--small">
+
+        <legend id="newaccountform" class="slds-text-heading--medium slds-p-vertical--medium">Add a new account</legend>
+
+        <div class="slds-form-element">
+          <label class="slds-form-element__label" for="account-name">Name</label>
+          <div class="slds-form-element__control">
+            <input id="account-name" class="slds-input" type="text" placeholder="New account"/>
+          </div>
+        </div>
+        <button class="slds-button slds-button--brand slds-m-top--medium" type="submit">Create Account</button>
+      </fieldset>
+      <!-- / BOXED AREA -->
+    </form>
+    <!-- CREATE NEW ACCOUNT FORM -->
+
+  </div>
+  <!-- / CREATE NEW ACCOUNT -->
+
+...
+
+
+  <div id="account-list" class="slds-p-vertical--medium"></div>
+<!-- /ACCOUNT LIST TABLE -->
+
+
+</div>
+<!-- / PRIMARY CONTENT WRAPPER -->
+<!-- FOOTER -->
+<footer role="contentinfo" class="slds-p-around--large">
+  <!-- LAYOUT GRID -->
+  <div class="slds-grid slds-grid--align-spread">
+    <p class="slds-col">Salesforce Lightning Design System Example</p>
+    <p class="slds-col">&copy; Your Name Here</p>
+  </div>
+  <!-- / LAYOUT GRID -->
+</footer>
+<!-- / FOOTER -->
+
+    <!-- / FOOTER -->
+
+  </div>
+  <!-- / REQUIRED SLDS WRAPPER -->
+
+  <!-- JAVASCRIPT -->
+ 
+<script>
+  (function() {
+    var account = new SObjectModel.Account();
+    var outputDiv = document.getElementById('account-list');
+
+    var updateOutputDiv = function() {
+
+      account.retrieve(
+        { orderby: [{ LastModifiedDate: 'DESC' }], limit: 10 },
+        function(error, records) {
+          if (error) {
+            alert(error.message);
+          } else {
+            // create data table
+            var dataTable = document.createElement('table');
+            dataTable.className = 'slds-table slds-table--bordered slds-table--cell-buffer slds-no-row-hover';
+
+            // add header row
+            var tableHeader = dataTable.createTHead();
+            var tableHeaderRow = tableHeader.insertRow();
+
+            var tableHeaderRowCell1 = tableHeaderRow.insertCell(0);
+            tableHeaderRowCell1.appendChild(document.createTextNode('Account name'));
+            tableHeaderRowCell1.setAttribute('scope', 'col');
+            tableHeaderRowCell1.setAttribute('class', 'slds-text-heading--label');
+
+            var tableHeaderRowCell2 = tableHeaderRow.insertCell(1);
+            tableHeaderRowCell2.appendChild(document.createTextNode('Account ID'));
+            tableHeaderRowCell2.setAttribute('scope', 'col');
+            tableHeaderRowCell2.setAttribute('class', 'slds-text-heading--label');
+
+            // build table body
+            var tableBody = dataTable.appendChild(document.createElement('tbody'))
+            var dataRow, dataRowCell1, dataRowCell2, recordName, recordId;
+            records.forEach(function(record) {
+              dataRow = tableBody.insertRow();
+
+              dataRowCell1 = dataRow.insertCell(0);
+              recordName = document.createTextNode(record.get('Name'));
+              dataRowCell1.appendChild(recordName);
+
+              dataRowCell2 = dataRow.insertCell(1);
+              recordId = document.createTextNode(record.get('Id'));
+              dataRowCell2.appendChild(recordId);
+            });
+
+            if (outputDiv.firstChild) {
+              // replace table if it already exists
+              // see later in tutorial
+              outputDiv.replaceChild(dataTable, outputDiv.firstChild);
+            } else {
+              outputDiv.appendChild(dataTable);
+            }
+          }
+        }
+      );
+    }
+    updateOutputDiv();
+var accountForm = document.getElementById('add-account-form');
+var accountNameField = document.getElementById('account-name');
+
+var createAccount = function() {
+  var account = new SObjectModel.Account();
+  account.create({ Name: accountNameField.value }, function(error, records) {
+    if (error) {
+      alert(error.message);
+    } else {
+      updateOutputDiv();
+      accountNameField.value = '';
+    }
+  });
+}
+document.addEventListener('submit', function(e) {
+  e.preventDefault();
+  createAccount();
+});
+  })();
+  
+
+</script>
+
+<!-- / JAVASCRIPT -->
+
+  
+</body>
+</html>
+</apex:page>

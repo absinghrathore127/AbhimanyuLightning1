@@ -1,0 +1,123 @@
+<aura:component controller="AccountController" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="expenses" type="Expense__c[]"/>
+    <ltng:require styles="{! $Resource.YourStaticResourceName + '/assets/styles/salesforce-lightning-design-system.css'}"/> 
+    <aura:attribute name="objInfo" type="account" default="{sobjectType : 'Account_Filter_Name__c'}" />
+    
+    
+    <!-- PAGE HEADER -->
+    <div class="slds-page-header" role="banner">
+        <div class="slds-grid">
+            <div class="slds-col">
+                <p class="slds-text-heading--label">Filter Logic</p>
+                <h1 class="slds-text-heading--medium">My Filter Logic</h1>
+            </div>
+        </div>
+    </div>
+    <!-- / PAGE HEADER -->
+    
+    <!-- NEW EXPENSE FORM -->
+    <div class="slds-col slds-col--padded slds-p-top--large">
+        
+        
+        <!-- [[ expense form goes here ]] -->
+        
+        <div aria-labelledby="newexpenseform">
+            
+            <!-- BOXED AREA -->
+            <fieldset class="slds-box slds-theme--default slds-container--large">
+                
+                <legend id="newexpenseform" class="slds-text-heading--small 
+                                                   slds-p-vertical--medium">
+                    Filter Account
+                </legend>
+                
+                <!-- CREATE NEW EXPENSE FORM -->
+                <div class="slds-grid slds-grid--align-left">
+                    
+                    <div class="slds-size--1-of-6 ">Fields</div>
+                    <div class="slds-size--1-of-6">Operator</div>
+                    <div class="slds-size--1-of-6">Value</div>
+                </div>
+                <form class="slds-form--inline">
+                    <div class ="slds-form-element">
+                        <c:AccountDynamicForm />
+                    </div>
+                    
+                    <div class="slds-form-element	">
+                        <ui:button label="More Filter"
+                                   class="filter-button"
+                                   press="{!c.clickMoreFilter}"/>
+                    </div>
+                    
+                    {!v.body}
+                    
+                </form>
+                
+                <!-- / CREATE NEW EXPENSE FORM -->
+                
+            </fieldset>
+            <!-- / BOXED AREA -->
+            
+        </div>
+        <!-- / CREATE NEW EXPENSE -->
+        
+        
+    </div>
+    
+    <!-- NEW Saved Search -->
+    <div class="slds-col slds-col--padded slds-p-top--large">
+        
+        
+        <!-- [[ Saved Form here ]] -->
+        
+        <div aria-labelledby="newsavedform">
+            
+            <!-- BOXED AREA -->
+            <fieldset class="slds-box slds-theme--default slds-container--large">
+                
+                <legend id="newsavedform" class="slds-text-heading--small 
+                                                 slds-p-vertical--medium">
+                    Saved Filter
+                </legend>
+                
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="select-01">Select Your Name</label>
+                    <div class="slds-select_container">
+                        <ui:inputSelect aura:id="accIndustry" class="slds-select"/>
+                    </div>
+                </div>             
+                <!-- / CREATE NEW EXPENSE FORM -->
+                
+            </fieldset>
+            <!-- / BOXED AREA -->
+            
+        </div>
+        <!-- / CREATE NEW EXPENSE -->
+        
+        
+    </div>
+    <div class="slds-col slds-col--padded slds-p-top--large">
+        <ui:inputText aura:id="text" 
+                      class="slds-input"
+                      placeholder="Add Filter logic here..."
+                      />
+        </div>
+    <div class="slds-m-around--x-large">
+        
+        <ui:button label="Filter Account"
+                   class="slds-button"
+                   press="{!c.clickMe}"/>
+        <ui:button label="Save My Search"
+                   class="slds-button"
+                   press="{!c.showModal}"
+                   />
+        <ui:button label="Remove Filter Logic"
+                   class="slds-button"
+                   press="{!c.toggle}"
+                   />
+    </div> 
+    
+    <!-- / NEW EXPENSE FORM -->
+    <c:AccountList expenses="{!v.expenses}"/>
+</aura:component>

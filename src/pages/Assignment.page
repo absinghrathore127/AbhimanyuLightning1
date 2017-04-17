@@ -1,0 +1,33 @@
+<apex:page standardController="Real_Cal__c" extensions="CustomWorkbench">
+  <apex:form >
+     <apex:pageBlock >
+     <apex:pageBlockSection >
+         <apex:outputLabel value="Choose Object : "></apex:outputLabel>
+                  <apex:selectList value="{!AllObjectsList}" size="1" onchange="change()">
+                      <apex:selectOptions value="{!AllObjects}">
+                      </apex:selectOptions>
+                  </apex:selectList>
+              
+                  <apex:actionFunction name="change"  action="{!getAllFields}" reRender="fields1" status="Loading"/><br/>
+                  <apex:actionStatus id="Loading" startText="Loading..."></apex:actionStatus>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection id="fields1">
+    
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <b><apex:OutputText value="Select {!AllObjectsList} Fields : "></apex:OutputText></b>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <apex:selectList value="{!CorrespondingFields}" size="1"> 
+             <apex:selectOptions value="{!fieldNames}" >
+             </apex:selectOptions>
+         </apex:selectList><br/><br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
+         <apex:commandButton value="Save" action="{!DisplayRecords}" status="Loading" /><br/>
+      
+        
+    </apex:pageBlockSection>
+     </apex:pageBlock>
+     
+    
+  </apex:form>
+</apex:page>

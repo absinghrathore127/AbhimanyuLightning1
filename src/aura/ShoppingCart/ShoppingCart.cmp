@@ -1,0 +1,58 @@
+<aura:component >  
+    <aura:attribute name="items" type="Product__c[]"/>
+    <aura:attribute name="total" type="Integer" default="0"/>
+    <aura:handler event="c:addToCartEvent" action="{!c.handleAddToCartEvent}"/>
+
+    <div class="col-lg-9 col-md-9 col-sm-12">
+        <div class="col-lg-12 col-sm-12">
+            <span class="title">COMPANY STORE BASKET</span>
+        </div>
+        <aura:renderIf isTrue="{!v.items.length > 0}">
+        <div class="col-lg-12 col-sm-12 hero-feature">
+            <table class="table table-bordered tbl-cart">
+                <thead>
+                    <tr>
+                        <td class="hidden-xs">Image</td>
+                        <td>Product Name</td>
+                        <td>Size</td>
+                        <td>Color</td>
+                        <td>Points</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.items}" var="item">
+                    <tr>
+                        <td class="hidden-xs">![{!item.Name}]({!item.Photo__c})</td>
+                        <td>{!item.Name}
+                        </td>
+                        <td>
+                            <select>
+                                <aura:iteration items="{!item.ProductSizes__r}" var="size">
+                                    <option>{!size.Name}</option>
+                                </aura:iteration>
+                            </select>
+                        </td>
+                        <td>{!item.Color__c}</td>
+                        <td>{!item.Points__c}</td>
+                    </tr>
+                    </aura:iteration>
+                    <tr>
+                        <td colspan="3" align="right">Total Points</td>
+                        <td class="total" colspan="2"><b>{!v.total}**</b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            [ Confirm your order](#)
+
+        </div>
+        </aura:renderIf>
+        <aura:renderIf isTrue="{!v.items.length == 0}">
+            <div class="col-lg-12 col-sm-12 hero-feature">
+
+Your basket is empty. So sad. Use your points to redeem something #awesome!
+
+            </div>
+        </aura:renderIf>
+    </div>
+</aura:component>

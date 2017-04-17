@@ -1,0 +1,44 @@
+<aura:component controller="AccountController">
+<aura:attribute name="newAccount" type="Account"
+default="{ 'sobjectType': 'Account',
+'Name': '',
+'Industry': '',
+'Phone': ''
+}"/>
+<div aria-hidden="false" id="newAccountSectionId" role="dialog" class="slds-modal slds-modal--large slds-fade-in-open" style="display:none;">
+<div class="slds-modal__container">
+<div class="slds-modal__header">
+<h2 class="slds-text-heading--medium">New Filter</h2>
+<button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.showModalBox}">
+<c:svg class="slds-button__icon slds-button__icon--large"
+xlinkHref="/resource/SLDS/assets/icons/action-sprite/svg/symbols.svg#close"
+ariaHidden="true"
+/>
+<span class="slds-assistive-text">Close</span>
+</button>
+</div>
+<div class="slds-modal__content">
+<div>
+<div class="slds-form-element">
+<div class="slds-form-element__control">
+<ui:inputText aura:id="accname" label="Your Name"
+class="slds-input"
+labelClass="slds-form-element__label"
+value="{!v.newAccount.Name}"
+required="true"/>
+</div>
+</div>
+
+
+</div>
+</div>
+<div class="slds-modal__footer">
+<div class="slds-x-small-buttons--horizontal">
+<button class="slds-button slds-button--neutral" onclick="{!c.showModalBox}" >Cancel</button>
+<button class="slds-button slds-button--neutral slds-button--brand" onclick="{!c.saveAccount}">Save</button>
+</div>
+</div>
+</div>
+</div>
+<div class="slds-backdrop slds-backdrop--open" id="backGroundSectionId" style="display:none;"></div>
+</aura:component>

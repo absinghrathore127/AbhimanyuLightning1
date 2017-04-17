@@ -1,0 +1,58 @@
+<aura:component >
+
+    <aura:attribute name="expense" type="Account"/>
+    <aura:attribute name="expenses" type="Account[]"/>
+    <aura:attribute name="mouseStart" type="string" />
+    <aura:attribute name="oldWidth" type="string" />
+    <table class="slds-table slds-table--bordered slds-table--col-bordered slds-table--fixed-layout slds-box slds-max-medium-table--stacked-horizontal" role="grid">
+       <thead>
+            <tr class="slds-line-height--reset">
+                
+                <th class="slds-is-sortable slds-divider slds-is-resizable slds-text-title--caps " scope="col">
+                    <span class="slds-truncate" title="Account Id">Account Id</span>
+                    <div class="slds-resizable">
+                        <input type="range" min="20" max="1000" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-603" tabindex="0" />
+                        <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}" ondrag="{!c.setNewWidth}">
+                            <span class="slds-resizable__divider"></span>
+                        </span>
+                    </div>
+                </th>
+                <th class="slds-is-sortable slds-is-resizable slds-text-title--caps" scope="col">
+                    <span class="slds-truncate" title="Account Name">Account Name</span>
+                    <div class="slds-resizable">
+                        <input type="range" min="20" max="1000" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-604" tabindex="0" />
+                        <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}" ondrag="{!c.setNewWidth}">
+                            <span class="slds-resizable__divider"></span>
+                        </span>
+                    </div>
+                </th>
+                <th class="slds-is-sortable slds-is-resizable slds-text-title--caps" scope="col">
+                    <span class="slds-truncate" title="Phone">Phone</span>
+                    <div class="slds-resizable">
+                        <input type="range" min="20" max="1000" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-605" tabindex="0" />
+                        <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}" ondrag="{!c.setNewWidth}">
+                            <span class="slds-resizable__divider"></span>
+                        </span>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <aura:iteration items="{!v.expenses}" var="expense">
+        <tbody>
+            <tr class="slds-hint-parent">
+                <td role="gridcell">
+                    <div class="slds-truncate">{!expense.Id}</div>
+                </td>
+                <td role="gridcell">
+                    <div class="slds-truncate" >{!expense.Name}</div>
+                </td>
+                <td role="gridcell">
+                    <div class="slds-truncate" >{!expense.Phone}</div>
+                </td>
+                </tr>
+           
+           
+        </tbody>
+            </aura:iteration>
+    </table>
+</aura:component>
