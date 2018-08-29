@@ -1,0 +1,82 @@
+<aura:component controller="AuraActivityHistoryController" implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+    
+    <aura:attribute type="Event[]" name="eventsList"/>
+    <aura:attribute name="mycolumns" type="List"/>
+    <aura:attribute name="sortedBy" type="String" default="Name"/>
+    <aura:attribute name="sortedDirection" type="String" default="asc"/>
+    <aura:attribute name="recordId" type="Id" />
+    <lightning:overlayLibrary aura:id="popuplib"/>
+    <aura:handler name="init" value="{!this}" action="{!c.fetchAccounts}"/>
+    <aura:attribute name="isListHasValue" type="boolean" default="true"/>
+    <aura:attribute name = "description" type = "String"/>
+    <aura:attribute name="showDetails" type="boolean" default="false" />   
+    <lightning:layout>
+        <lightning:layoutItem size= "12" flexibility="auto"> 
+            <article class="slds-card slds-card_boundary forceRelatedListCardDesktop">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-contact" title="Activities">
+                                <lightning:icon iconName="custom:custom19" size="small"/>
+                                <span class="slds-assistive-text">Activities</span>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Activities">
+                                    <span class="slds-text-heading_small">Activities</span>
+                                </a>
+                            </h2>
+                        </div>
+                        <div class="slds-no-flex">
+                            <!--<button class="slds-button slds-button_neutral">New</button>-->
+                        </div>
+                    </header>
+                </div>
+                <aura:if isTrue="{!v.isListHasValue}">     
+                    <div class="slds-card__body">
+                        
+                        <div class="slds-scrollable--y mypopover" style="max-height: 20rem;">
+                            <lightning:datatable data="{!v.eventsList}" 
+                                                 columns="{!v.mycolumns}" 
+                                                 keyField="id"
+                                                 hideCheckboxColumn="true"
+                                                 onsort="{!c.updateColumnSorting}"
+                                                 sortedBy="{!v.sortedBy}"  
+                                                 sortedDirection="{!v.sortedDirection}"
+                                                 onrowaction="{!c.viewRecord}"
+                                                 />
+                        </div>
+                        
+                    </div>
+                    <footer class="slds-card__footer" aura:id="cardFooter">
+                        <lightning:button variant="base" label="View All" title="View All" onclick="{! c.fetchAllEvents }"/>
+                    </footer>
+                </aura:if>     
+            </article> 
+        </lightning:layoutItem>
+        <lightning:layoutItem  aura:id="toolTipContainer" flexibility="auto, no-grow" size= "11">
+            <aura:if isTrue="{!v.showDetails}">
+                <section aria-labelledby="panel-heading-id" class="slds-popover slds-popover_panel slds-nubbin_left-top slds-popover_large" style="min-width: 28rem;" role="dialog">
+                    <button class="slds-button slds-button_icon slds-button_icon slds-button_icon-small slds-float_right slds-popover__close" title="Close dialog" onclick='{!c.closeToolTip}'>
+                        <span class="slds-assistive-text">Close dialog</span>
+                        <lightning:icon iconName="utility:close" size="small" alternativeText="sss"/>
+                    </button>
+                    <div class="slds-popover__header">
+                        
+                        <footer class="slds-grid slds-wrap slds-grid_pull-padded"
+                                style="max-height: 300px;overflow-y: auto;">
+                            <div class="slds-p-horizontal_small slds-size_2-of-2 slds-p-bottom_x-small">
+                                <dl>
+                                    <dt>
+                                        <ui:outputTextArea value="{!v.description}"/>
+                                    </dt>
+                                </dl>
+                            </div>
+                        </footer>
+                    </div>
+                </section>
+            </aura:if> 
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>
