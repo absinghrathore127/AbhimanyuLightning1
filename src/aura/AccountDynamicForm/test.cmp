@@ -1,3 +1,4 @@
+```
 <aura:component controller="AuraActivityHistoryController" implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
     
     <aura:attribute type="Event[]" name="eventsList"/>
@@ -80,3 +81,4 @@
         </lightning:layoutItem>
     </lightning:layout>
 </aura:component>
+```
